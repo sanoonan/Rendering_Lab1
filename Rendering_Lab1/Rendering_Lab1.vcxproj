@@ -86,6 +86,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="..\Shaders\blinnPhongFragmentShader.txt" />
+    <Text Include="..\Shaders\blinnPhongVertexShader.txt" />
     <Text Include="..\Shaders\goochFragmentShader.txt" />
     <Text Include="..\Shaders\goochVertexShader.txt" />
     <Text Include="..\Shaders\gouradFragmentShader.txt" />

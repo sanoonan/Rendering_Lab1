@@ -6,28 +6,34 @@ layout(location = 2) in vec2 vertex_texture;
 
 
 
-
-
-
 uniform mat4 view;
 uniform mat4 proj;
 uniform mat4 model;
 
-out vec3 direction_to_light_eye;
-out vec4 position_eye;
+uniform vec4 LightPosition;
+
+out vec3 N;
+out vec3 L;
 
 
-void main(){
-
-
+void main()
+{
+	//view space
 
 	mat4 ModelViewMatrix = view * model;
 	mat3 NormalMatrix =  mat3(ModelViewMatrix);
-	// Convert normal and position to eye coords
-	// Normal in view space
-	direction_to_light_eye = normalize( NormalMatrix * vertex_normal);
-	// Position in view space
-	position_eye = ModelViewMatrix * vec4(vertex_position,1.0);
+
+
+	// normal in view space
+	N = normalize( NormalMatrix * vertex_normal);//camera space
+
+	// position in view space
+	vec4 position = ModelViewMatrix * vec4(vertex_position,1.0);//camera space
+
+	//normalised vector towards the light source
+	vec4 light_position = view * LightPosition;
+	L = normalize(vec3(light_position - position));
+  
 
 
 

@@ -31,39 +31,34 @@ bool Mesh :: load_mesh ()
 	
 
 	
-  const aiScene* scene = aiImportFile (filename, aiProcess_Triangulate); // TRIANGLES!
+	const aiScene* scene = aiImportFile (filename, aiProcess_Triangulate); // TRIANGLES!
 
   
-  if (!scene)
-  {
-    fprintf (stderr, "ERROR: reading mesh %s\n", filename);
-    return false;
-  }
-  printf ("  %i animations\n", scene->mNumAnimations);
-  printf ("  %i cameras\n", scene->mNumCameras);
-  printf ("  %i lights\n", scene->mNumLights);
-  printf ("  %i materials\n", scene->mNumMaterials);
-  printf ("  %i meshes\n", scene->mNumMeshes);
-  printf ("  %i textures\n", scene->mNumTextures);
+	if (!scene)
+	{
+		fprintf (stderr, "ERROR: reading mesh %s\n", filename);
+		return false;
+	}
+	printf ("  %i animations\n", scene->mNumAnimations);
+	printf ("  %i cameras\n", scene->mNumCameras);
+	printf ("  %i lights\n", scene->mNumLights);
+	printf ("  %i materials\n", scene->mNumMaterials);
+	printf ("  %i meshes\n", scene->mNumMeshes);
+	printf ("  %i textures\n", scene->mNumTextures);
   
   
-
-  for(int i=0; i<scene->mNumMeshes; i++)
-  {
+	load_material(scene);
 	assign_vao(scene);
-  }
+
  
-  aiReleaseImport (scene);
-  printf("mesh loaded\n");
+	aiReleaseImport (scene);
+	printf("mesh loaded\n");
   
-  return true;
+	return true;
 }
 
-
-//loads assimp mesh data into the vao
-void Mesh :: assign_vao(const aiScene* scene)
+void Mesh :: load_material(const aiScene* scene)
 {
-
 	//get materials
 	if (scene->mNumMaterials > 0)
 	{
@@ -92,9 +87,13 @@ void Mesh :: assign_vao(const aiScene* scene)
 		material.cool = glm::vec3(0.0, 0.0, 1.0);
 		material.warm = glm::vec3(1.0, 1.0, 0.4);
 	}
+}
 
 
-
+//loads assimp mesh data into the vao
+void Mesh :: assign_vao(const aiScene* scene)
+{
+	
 
 	 const aiMesh* mesh = scene->mMeshes[0]; 
 

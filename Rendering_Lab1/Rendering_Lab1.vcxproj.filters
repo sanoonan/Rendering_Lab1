@@ -45,6 +45,12 @@
     <Text Include="..\Shaders\goochVertexShader.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="..\Shaders\blinnPhongVertexShader.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="..\Shaders\blinnPhongFragmentShader.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Files\Camera.h">

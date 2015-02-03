@@ -27,44 +27,54 @@ uniform vec3 Ls;
 
 
 
-void main(){
-
-
-
-	mat4 ModelViewMatrix = view * model;
-	mat3 NormalMatrix =  mat3(ModelViewMatrix);
-	// Convert normal and position to eye coords
-	// Normal in view space
-	vec3 direction_to_light_eye = normalize( NormalMatrix * vertex_normal);
-	// Position in view space
-	vec4 position_eye = ModelViewMatrix * vec4(vertex_position,1.0);
-	//normalised vector towards the light source
-	vec3 normal_eye = normalize(vec3(LightPosition - position_eye));
-  
-	// The diffuse shading equation, dot product gives us the cosine of angle between the vectors
-	vec3 Id = Ld * kd * max( dot( normal_eye, direction_to_light_eye ), 0.0 );
+void main()
+{
 
 	vec3 Ia = La * ka;
 
 
 
 
-	vec3 reflection_eye = reflect (-direction_to_light_eye, normal_eye);
+	//view space
 
-	vec3 surface_to_viewer_eye = vec3(normalize (-position_eye));
+	mat4 ModelViewMatrix = view * model;
+	mat3 NormalMatrix =  mat3(ModelViewMatrix);
 
-	float dot_prod_specular = dot (reflection_eye, surface_to_viewer_eye);
 
-	dot_prod_specular = max (dot_prod_specular, 0.0);
+	// normal in view space
+	vec3 N = normalize( NormalMatrix * vertex_normal);//camera space
+	// position in view space
 
-	float specular_factor = pow (dot_prod_specular, spec_ex);
+	vec4 position = ModelViewMatrix * vec4(vertex_position,1.0);//camera space
+
+	//normalised vector towards the light source
+	vec4 light_position = view * LightPosition;
+	vec3 L = normalize(vec3(light_position - position));
+  
+	float dot_diffuse = dot(L, N);
+	dot_diffuse = max(dot_diffuse, 0.0f);
+
+	vec3 Id = Ld * kd * dot_diffuse;
+
+	
+
+
+	
+
+	vec3 R = reflect (-L, N);
+
+	vec3 V = vec3(normalize (-position));
+
+	float dot_spec = dot (R, V);
+
+	dot_spec = max (dot_spec, 0.0);
+
+	float specular_factor = pow (dot_spec, spec_ex);
 
 	vec3 Is = Ls * ks * specular_factor; // final specular intensity
 	
 
 
-
-//	vec3 Is = vec3(0.0, 0.0, 0.0);
 
 
 

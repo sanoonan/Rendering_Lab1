@@ -36,6 +36,8 @@ int height = 900;
 
 #define V_SHADER_PHONG "../Shaders/phongVertexShader.txt"
 #define F_SHADER_PHONG "../Shaders/phongFragmentShader.txt"
+#define V_SHADER_BLINNPHONG "../Shaders/blinnPhongVertexShader.txt"
+#define F_SHADER_BLINNPHONG "../Shaders/blinnPhongFragmentShader.txt"
 #define V_SHADER_GOURAD "../Shaders/gouradVertexShader.txt"
 #define F_SHADER_GOURAD "../Shaders/gouradFragmentShader.txt"
 #define V_SHADER_TOON "../Shaders/toonVertexShader.txt"
@@ -51,7 +53,7 @@ int oldTime = 0;
 Camera camera(glm::vec3(0.0f, 0.0f, 10.0f));
 
 glm::vec4 light_pos(-5.0f, 0.0f, 5.0f, 1.0f); 
-glm::vec3 la(0.5f, 0.5f, 0.5f); 
+glm::vec3 la(1.0f, 1.0f, 1.0f); 
 glm::vec3 ld(1.0f, 1.0f, 1.0f); 
 glm::vec3 ls(1.0f, 1.0f, 1.0f); 
 
@@ -77,6 +79,7 @@ void addShaders()
 {
 	shaders.addShader("Gourad", V_SHADER_GOURAD, F_SHADER_GOURAD);
 	shaders.addShader("Phong", V_SHADER_PHONG, F_SHADER_PHONG);
+	shaders.addShader("Blinn-Phong", V_SHADER_BLINNPHONG, F_SHADER_BLINNPHONG);
 	shaders.addShader("Toon", V_SHADER_TOON, F_SHADER_TOON);
 	shaders.addShader("Gooch", V_SHADER_GOOCH, F_SHADER_GOOCH);
 }

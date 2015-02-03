@@ -20,9 +20,8 @@ vec3 Ld = vec3 (1.0, 1.0, 1.0); // Light source intensity
 
 
 
-void main(){
-
-
+void main()
+{
 
   mat4 ModelViewMatrix = view * model;
   mat3 NormalMatrix =  mat3(ModelViewMatrix);

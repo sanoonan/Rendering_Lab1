@@ -57,6 +57,7 @@ public:
 
 	Material material;
 
+	void load_material(const aiScene* scene);
 	
 	void addTBar(TwBar *bar);
 
